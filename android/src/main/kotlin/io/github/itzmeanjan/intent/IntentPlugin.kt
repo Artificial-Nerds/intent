@@ -183,6 +183,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
             // cause this method will listen for result of activity launched using onActivityResult callback
             // and then send processed URI to destination
             "startActivityForResult" -> {
+                Log.d("KOTLIN RES", "starting activity for result...")
                 activityCompletedCallBack = object : ActivityCompletedCallBack {
                     override fun sendDocument(data: List<String>) {
                         result.success(data)
