@@ -64,6 +64,8 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                                 filePaths.add(resolveContacts(intent.data!!))
                             else
                                 filePaths.add(uriToFilePath(intent.data!!))
+
+                            filePaths.add(intent.getStringExtra("result"))
                             activityCompletedCallBack?.sendDocument(filePaths)
                         }
                         true
