@@ -40,8 +40,14 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
             when (requestCode) {
                 999 -> {
                     if (resultCode == Activity.RESULT_OK) {
+                        try {
+                            print(intent.getStringExtra("result"))
+                        } catch (e: Exception) {
+                            print("error getting string extra")
+                        }
                         val filePaths = mutableListOf<String>()
                         if (intent.clipData != null) {
+                            print("enter clip data")
                             var i = 0
                             while (i < intent.clipData?.itemCount!!) {
                                 if (intent.type == ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
@@ -52,6 +58,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                             }
                             activityCompletedCallBack?.sendDocument(filePaths)
                         } else {
+                            print("enter clip data else")
                             if (intent.type == ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
                                 filePaths.add(resolveContacts(intent.data!!))
                             else
