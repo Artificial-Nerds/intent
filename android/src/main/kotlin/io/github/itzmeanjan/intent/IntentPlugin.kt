@@ -41,45 +41,13 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
             when (requestCode) {
                 999 -> {
                     if (resultCode == Activity.RESULT_OK) {
-                        try {
-                            Log.d("KOTLIN RES", intent.getStringExtra("result"))
-                        } catch (e: Exception) {
-                            Log.d("KOTLIN RES", "error getting string extra")
-                        }
                         val filePaths = mutableListOf<String>()
-                        if (intent.clipData != null) {
-                            Log.d("KOTLIN RES", "enter clip data")
-                            var i = 0
-                            while (i < intent.clipData?.itemCount!!) {
-                                if (intent.type == ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
-                                    filePaths.add(resolveContacts(intent.clipData?.getItemAt(i)?.uri!!))
-                                else
-                                    filePaths.add(uriToFilePath(intent.clipData?.getItemAt(i)?.uri!!))
-                                i++
-                            }
-                            activityCompletedCallBack?.sendDocument(filePaths)
-                        } else {
-                            Log.d("KOTLIN RES", "enter clip data else")
-                            if (intent.type == ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
-                                filePaths.add(resolveContacts(intent.data!!))
-                            else
-                                filePaths.add(uriToFilePath(intent.data!!))
-
-                            filePaths.add(intent.getStringExtra("result"))
-                            activityCompletedCallBack?.sendDocument(filePaths)
-                        }
+                        filePaths.add("Hello")
+                        filePaths.add("world!")
+                        filePaths.add(intent.getStringExtra("result"))
+                        activityCompletedCallBack?.sendDocument(filePaths)
                         true
-                    } else {
-                        activityCompletedCallBack?.sendDocument(listOf())
-                        false
                     }
-                }
-                998 -> {
-                    if (resultCode == Activity.RESULT_OK) {
-                        activityCompletedCallBack?.sendDocument(listOf(tobeCapturedImageLocationFilePath.absolutePath))
-                        true
-                    } else
-                        false
                 }
                 else -> {
                     false
