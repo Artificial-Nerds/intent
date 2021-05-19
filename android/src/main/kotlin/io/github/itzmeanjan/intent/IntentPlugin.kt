@@ -16,6 +16,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.util.Log
 
 class IntentPlugin(private val registrar: Registrar, private val activity: Activity) : MethodCallHandler {
 
@@ -41,13 +42,13 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                 999 -> {
                     if (resultCode == Activity.RESULT_OK) {
                         try {
-                            print(intent.getStringExtra("result"))
+                            Log.d("KOTLIN RES", intent.getStringExtra("result"))
                         } catch (e: Exception) {
-                            print("error getting string extra")
+                            Log.d("KOTLIN RES", "error getting string extra")
                         }
                         val filePaths = mutableListOf<String>()
                         if (intent.clipData != null) {
-                            print("enter clip data")
+                            Log.d("KOTLIN RES", "enter clip data")
                             var i = 0
                             while (i < intent.clipData?.itemCount!!) {
                                 if (intent.type == ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
@@ -58,7 +59,7 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                             }
                             activityCompletedCallBack?.sendDocument(filePaths)
                         } else {
-                            print("enter clip data else")
+                            Log.d("KOTLIN RES", "enter clip data else")
                             if (intent.type == ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
                                 filePaths.add(resolveContacts(intent.data!!))
                             else
