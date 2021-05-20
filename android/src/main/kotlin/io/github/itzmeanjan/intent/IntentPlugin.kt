@@ -47,6 +47,9 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
                         filePaths.add(intent.getStringExtra("result"))
                         activityCompletedCallBack?.sendDocument(filePaths)
                         true
+                    } else {
+                        activityCompletedCallBack?.sendDocument(listOf())
+                        false
                     }
                 }
                 else -> {
