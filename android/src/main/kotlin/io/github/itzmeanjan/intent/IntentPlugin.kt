@@ -40,17 +40,10 @@ class IntentPlugin(private val registrar: Registrar, private val activity: Activ
         registrar.addActivityResultListener { requestCode, resultCode, intent ->
             when (requestCode) {
                 999 -> {
-                    if (resultCode == Activity.RESULT_OK) {
-                        val filePaths = mutableListOf<String>()
-                        filePaths.add("Hello")
-                        filePaths.add("world!")
-                        filePaths.add(intent.getStringExtra("result"))
-                        activityCompletedCallBack?.sendDocument(filePaths)
-                        true
-                    } else {
-                        activityCompletedCallBack?.sendDocument(listOf())
-                        false
-                    }
+                    val filePaths = mutableListOf<String>()
+                    filePaths.add(intent.getStringExtra("response"))
+                    activityCompletedCallBack?.sendDocument(filePaths)
+                    true
                 }
                 else -> {
                     false
